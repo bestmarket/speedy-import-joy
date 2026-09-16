@@ -76,6 +76,8 @@ function StudioPage() {
   const [localProgress, setLocalProgress] = useState<Record<string, number>>({});
   const [editingId, setEditingId] = useState<string | null>(null);
   const [rerenderId, setRerenderId] = useState<string | null>(null);
+  const productionRef = useRef<HTMLElement | null>(null);
+
 
   const scripts = workspace.data?.scripts ?? [];
   const videos = (workspace.data?.videos ?? []) as unknown as VideoRow[];
