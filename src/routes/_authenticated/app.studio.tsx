@@ -262,7 +262,11 @@ function StudioPage() {
               key={option.id}
               type="button"
               aria-pressed={style === option.id}
-              onClick={() => setStyle(option.id)}
+              onClick={() => {
+                setStyle(option.id);
+                productionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+
               className={cn(
                 "overflow-hidden rounded-lg border text-left transition-colors",
                 style === option.id
