@@ -403,49 +403,6 @@ function StudioPage() {
         </Button>
       </section>
 
-      {/* From prompts */}
-      <section className="space-y-3">
-        <div>
-          <h2 className="text-sm font-medium text-foreground">Produce from prompts</h2>
-          <p className="text-xs text-muted-foreground">
-            Paste the image prompts from chat — one per line — and they become the scenes.
-          </p>
-        </div>
-        <Textarea
-          rows={5}
-          value={prompts}
-          placeholder={"A lone hiker at dawn on a ridge\nClose-up of frost on a compass\n…"}
-          onChange={(e) => setPrompts(e.target.value)}
-        />
-        <Button
-          variant="outline"
-          className="w-full"
-          disabled={!projectId || prompts.trim().length < 3 || queuePrompts.isPending}
-          onClick={() =>
-            projectId &&
-            queuePrompts.mutate({
-              data: {
-                projectId,
-                title: "Prompt video",
-                prompts,
-                language: languages[0] ?? "English",
-                style,
-                scheduledAt: schedule,
-              },
-            })
-          }
-        >
-          {queuePrompts.isPending ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Building scenes…
-            </>
-          ) : (
-            <>
-              <Wand2 className="mr-2 h-4 w-4" /> Turn prompts into a video
-            </>
-          )}
-        </Button>
-      </section>
 
       {/* Queue */}
       <section className="space-y-3">
