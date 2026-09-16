@@ -76,6 +76,8 @@ function StudioPage() {
   const [localProgress, setLocalProgress] = useState<Record<string, number>>({});
   const [editingId, setEditingId] = useState<string | null>(null);
   const [rerenderId, setRerenderId] = useState<string | null>(null);
+  const productionRef = useRef<HTMLElement | null>(null);
+
 
   const scripts = workspace.data?.scripts ?? [];
   const videos = (workspace.data?.videos ?? []) as unknown as VideoRow[];
@@ -262,7 +264,11 @@ function StudioPage() {
               key={option.id}
               type="button"
               aria-pressed={style === option.id}
-              onClick={() => setStyle(option.id)}
+              onClick={() => {
+                setStyle(option.id);
+                productionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+
               className={cn(
                 "overflow-hidden rounded-lg border text-left transition-colors",
                 style === option.id
@@ -281,7 +287,7 @@ function StudioPage() {
       </section>
 
       {/* Languages + schedule */}
-      <section className="space-y-3 rounded-lg border border-border p-4">
+      <section ref={productionRef} className="space-y-3 rounded-lg border border-border p-4">
         <div className="space-y-2">
           <Label>Languages</Label>
           <div className="flex flex-wrap gap-2">
