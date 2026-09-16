@@ -19,7 +19,7 @@ import {
   VIDEO_STYLES,
   buildScene,
   deleteVideo,
-  queueFromPrompts,
+  
   queueVideos,
   setVideoStatus,
   signAssets,
