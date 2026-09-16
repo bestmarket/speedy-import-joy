@@ -169,6 +169,17 @@ export function ProductionDialog({ style, projectId, scripts, onClose, onQueued 
       <DialogContent className="flex max-h-[92vh] max-w-3xl flex-col overflow-hidden p-0">
         <DialogHeader className="border-b border-border p-5 pb-4">
           <div className="flex items-center gap-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="-ml-2 shrink-0"
+              onClick={onClose}
+              aria-label="Back to video styles"
+            >
+              <ArrowLeft className="mr-1 h-4 w-4" /> Back
+            </Button>
+          </div>
+          <div className="flex items-center gap-3 pt-2">
             <span
               className="h-10 w-16 shrink-0 rounded"
               style={{ background: style.swatch }}
@@ -180,6 +191,7 @@ export function ProductionDialog({ style, projectId, scripts, onClose, onQueued 
             </div>
           </div>
         </DialogHeader>
+
 
         <div className="flex-1 space-y-6 overflow-y-auto p-5">
           {/* Scripts from chat */}
