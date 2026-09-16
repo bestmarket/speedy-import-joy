@@ -281,7 +281,7 @@ function StudioPage() {
       </section>
 
       {/* Languages + schedule */}
-      <section className="space-y-3 rounded-lg border border-border p-4">
+      <section ref={productionRef} className="space-y-3 rounded-lg border border-border p-4">
         <div className="space-y-2">
           <Label>Languages</Label>
           <div className="flex flex-wrap gap-2">
