@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { CalendarClock, Download, Film, Loader2, Pencil, Play, Trash2, Wand2 } from "lucide-react";
+import { CalendarClock, Download, Film, Loader2, Pencil, Play, Trash2 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
-import { Textarea } from "@/components/ui/textarea";
+
 import { supabase } from "@/integrations/supabase/client";
 import { publishVideo } from "@/lib/channels.functions";
 import { renderVideo } from "@/lib/renderVideo";
@@ -19,7 +19,7 @@ import {
   VIDEO_STYLES,
   buildScene,
   deleteVideo,
-  queueFromPrompts,
+  
   queueVideos,
   setVideoStatus,
   signAssets,
@@ -71,7 +71,7 @@ function StudioPage() {
   const [scriptIds, setScriptIds] = useState<string[]>([]);
   const [languages, setLanguages] = useState<string[]>(["English"]);
   const [scheduledAt, setScheduledAt] = useState("");
-  const [prompts, setPrompts] = useState("");
+  
   const [busyId, setBusyId] = useState<string | null>(null);
   const [localProgress, setLocalProgress] = useState<Record<string, number>>({});
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -92,15 +92,6 @@ function StudioPage() {
     onError: (e: Error) => toast.error(e.message),
   });
 
-  const queuePrompts = useMutation({
-    mutationFn: useServerFn(queueFromPrompts),
-    onSuccess: async () => {
-      setPrompts("");
-      await refresh();
-      toast.success(schedule ? "Scheduled" : "Added to the production queue");
-    },
-    onError: (e: Error) => toast.error(e.message),
-  });
 
   const remove = useMutation({
     mutationFn: useServerFn(deleteVideo),
@@ -403,49 +394,6 @@ function StudioPage() {
         </Button>
       </section>
 
-      {/* From prompts */}
-      <section className="space-y-3">
-        <div>
-          <h2 className="text-sm font-medium text-foreground">Produce from prompts</h2>
-          <p className="text-xs text-muted-foreground">
-            Paste the image prompts from chat — one per line — and they become the scenes.
-          </p>
-        </div>
-        <Textarea
-          rows={5}
-          value={prompts}
-          placeholder={"A lone hiker at dawn on a ridge\nClose-up of frost on a compass\n…"}
-          onChange={(e) => setPrompts(e.target.value)}
-        />
-        <Button
-          variant="outline"
-          className="w-full"
-          disabled={!projectId || prompts.trim().length < 3 || queuePrompts.isPending}
-          onClick={() =>
-            projectId &&
-            queuePrompts.mutate({
-              data: {
-                projectId,
-                title: "Prompt video",
-                prompts,
-                language: languages[0] ?? "English",
-                style,
-                scheduledAt: schedule,
-              },
-            })
-          }
-        >
-          {queuePrompts.isPending ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Building scenes…
-            </>
-          ) : (
-            <>
-              <Wand2 className="mr-2 h-4 w-4" /> Turn prompts into a video
-            </>
-          )}
-        </Button>
-      </section>
 
       {/* Queue */}
       <section className="space-y-3">
