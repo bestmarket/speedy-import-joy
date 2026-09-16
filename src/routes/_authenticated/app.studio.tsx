@@ -71,7 +71,7 @@ function StudioPage() {
   const [scriptIds, setScriptIds] = useState<string[]>([]);
   const [languages, setLanguages] = useState<string[]>(["English"]);
   const [scheduledAt, setScheduledAt] = useState("");
-  const [prompts, setPrompts] = useState("");
+  
   const [busyId, setBusyId] = useState<string | null>(null);
   const [localProgress, setLocalProgress] = useState<Record<string, number>>({});
   const [editingId, setEditingId] = useState<string | null>(null);
