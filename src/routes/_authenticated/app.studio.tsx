@@ -92,15 +92,6 @@ function StudioPage() {
     onError: (e: Error) => toast.error(e.message),
   });
 
-  const queuePrompts = useMutation({
-    mutationFn: useServerFn(queueFromPrompts),
-    onSuccess: async () => {
-      setPrompts("");
-      await refresh();
-      toast.success(schedule ? "Scheduled" : "Added to the production queue");
-    },
-    onError: (e: Error) => toast.error(e.message),
-  });
 
   const remove = useMutation({
     mutationFn: useServerFn(deleteVideo),
